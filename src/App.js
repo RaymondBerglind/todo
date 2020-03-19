@@ -1,12 +1,16 @@
-import React from 'react';
+import React, {useState} from 'react';
+import './App.css';
 import Search from './views/search/component';
 import TodoList from './views/list/component';
+import * as core from './core';
 
 function App() {
+  const [state, setState] = useState(core.createInitialState());
+
   return (
-    <div>
+    <div className="main-container">
       <Search />
-      <TodoList />
+      <TodoList items={core.getItems(state)}/>
     </div>
   );
 }
