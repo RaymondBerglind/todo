@@ -25,7 +25,9 @@ export function createInitialState() {
             title: 'Another Drink more coffee',
             done: false
         }],
-        reorderSourceIndex: null
+        itemBeingReorderedId: null,
+        reorderSourceIndex: null,
+        reorderTargetIndex: null,
     }
 }
 
@@ -33,35 +35,60 @@ export function getItems(state) {
     return state.items;
 }
 
-export function setIsReorderingItem(state, id) {
-    state.reorderSourceIndex = id;
+export function setIsReorderingItem(state, sourceIndex) {
+    state.reorderSourceIndex = sourceIndex;
+    state.itemBeingReorderedId = state.items[sourceIndex].id;
+
     return {...state};
 }
 
-export function clearReordering(state) {
-    state.reorderSourceIndex = null;
+export function setReorderingTarget(state, targetIndex) {
+    state.reorderTargetIndex = targetIndex;
     return {...state};
+}
+
+export function isReorderingList(state) {
+    return state.reorderSourceIndex || state.reorderSourceIndex === 0;
+}
+
+export function clearReordering(state) {
+    return {
+        ...state,
+        ...{
+            itemBeingReorderedId: null,
+            reorderSourceIndex: null,
+            reorderTargetIndex: null
+        }
+    };
 }
 
 export function getReorderSourceIndex(state) {
     return state.reorderSourceIndex;
 }
 
-export function reorderSourceAndTarget(state, {targetIndex}) {
-    const shouldShiftForward = state.reorderSourceIndex > targetIndex;
-    
-    state.items = shouldShiftForward ? [
-        ...state.items.slice(0, targetIndex),
-        state.items[state.reorderSourceIndex],
-        ...state.items.slice(targetIndex, state.reorderSourceIndex),
-        ...state.items.slice(state.reorderSourceIndex + 1)
-    ] : [
-        ...state.items.slice(0, state.reorderSourceIndex),
-        ...state.items.slice(state.reorderSourceIndex + 1, targetIndex + 1),
-        state.items[state.reorderSourceIndex],
-        ...state.items.slice(targetIndex + 1)
-    ];
-    state = clearReordering(state);
+export function getReorderTargetIndex(state) {
+    return state.reorderTargetIndex;
+}
 
-    return state;
+export function reorderSourceAndTarget(state) {
+    if (!state.reorderTargetIndex && state.reorderTargetIndex !== 0) {
+        return state;
+    }
+    const itemBeingReordered = state.items.filter(item => item.id === state.itemBeingReorderedId)[0];
+    const itemList = state.items.filter(item => item.id !== state.itemBeingReorderedId);
+    
+    return {
+        ...state,
+        ...{
+            items: [
+                ...itemList.slice(0, state.reorderTargetIndex),
+                itemBeingReordered,
+                ...itemList.slice(state.reorderTargetIndex)
+            ]
+        },
+    }
+}
+
+export function getListToDisplay(state) {
+    return isReorderingList(state) ? reorderSourceAndTarget(state).items : getItems(state);
 }

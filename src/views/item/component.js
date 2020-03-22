@@ -1,7 +1,7 @@
 import React from 'react';
 
 export default function(props) {
-    const itemStyle = props.isBeingReordered ? {opacity: '0.2'} : {};
+    const itemStyle = props.isBeingReordered ? {background: '#182251'} : {};
 
     return (
         <div className="list-item"
@@ -16,32 +16,26 @@ export default function(props) {
                 });
             }}
             onDragEnd={(e) => {
-                console.log("Endin' fools.")
-                e.preventDefault();
-                // props.triggerEvent({
-                //     name: 'reorderEnded',
-                //     data: {
-                //         itemId: props.item.id
-                //     }
-                // });
-            }}
-            onDrop={(e) => {
-                console.log("Droppin' fools.")
                 e.preventDefault();
                 props.triggerEvent({
-                    name: 'reorderEnded',
+                    name: 'reorderEnded'
+                });
+            }}
+            onDrop={(e) => {
+                e.preventDefault();
+            }}
+            onDragOver={(e) => {
+                e.preventDefault();
+            }}
+            onDragEnter={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                props.triggerEvent({
+                    name: 'reorderTargetUpdated',
                     data: {
                         targetIndex: props.index
                     }
                 });
-            }}
-            onDragOver={(e) => {
-                e.preventDefault();
-                console.log('On drag over');
-            }}
-            onDragEnter={(e) => {
-                e.preventDefault();
-                console.log('On drag Enter');
             }}>
             <span className="todo-title">{`${props.item.title}: ${props.item.done ? 'Done' : 'Do'}`}</span>
             <input type="checkbox"
