@@ -16,6 +16,11 @@ function App() {
       setState(core.clearReordering(
         core.reorderSourceAndTarget(state))
       );
+    } else if (event.name === 'itemDoneToggled') {
+      setState(core.setItemDone(state, {
+        id: event.data.itemId,
+        done: event.data.done
+      }));
     }
   }
   

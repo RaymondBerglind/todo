@@ -37,11 +37,17 @@ export default function(props) {
                     }
                 });
             }}>
-            <span className="todo-title">{`${props.item.title}: ${props.item.done ? 'Done' : 'Do'}`}</span>
+            <span className="todo-title">{`${props.title}: ${props.done ? 'Done' : 'Do'}`}</span>
             <input type="checkbox"
                 checked={props.done}
-                onChange={checked => {
-                    // TODO
+                onChange={(e) => {
+                    props.triggerEvent({
+                        name: 'itemDoneToggled',
+                        data: {
+                            itemId: props.id,
+                            done: !props.done
+                        }
+                    })
                 }} />
         </div>
     );

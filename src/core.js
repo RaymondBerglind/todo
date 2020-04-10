@@ -92,3 +92,12 @@ export function reorderSourceAndTarget(state) {
 export function getListToDisplay(state) {
     return isReorderingList(state) ? reorderSourceAndTarget(state).items : getItems(state);
 }
+
+export function setItemDone(state, {id, done}) {
+    return {
+        ...state,
+        items: state.items.reduce((prev, curr) => {
+            return [...prev, curr.id === id ? {...curr, done} : curr];
+        }, [])
+    }
+}

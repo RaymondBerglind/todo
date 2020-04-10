@@ -232,3 +232,65 @@ describe('reorderSourceAndTarget', function () {
         }]);
     });
 });
+
+describe('setItemDone', function () {
+    it('Should mark the item with a specified ID as done (true/false).', function () {
+        const state = createTestState();
+
+        expect(core.setItemDone(state, {id: 3, done: true}).items).toEqual([{
+            id: 1,
+            title: 'Learn about drag and drop',
+            done: false
+        }, {
+            id: 2,
+            title: 'Drink coffee',
+            done: false
+        }, {
+            id: 3,
+            title: 'Drink more coffee',
+            done: true
+        }, {
+            id: 4,
+            title: 'Another Learn about drag and drop',
+            done: false
+        }, {
+            id: 5,
+            title: 'Another Drink coffee',
+            done: false
+        }, {
+            id: 6,
+            title: 'Another Drink more coffee',
+            done: false
+        }]);
+    });
+
+    it('Should handle a non-existent id.', function () {
+        const state = createTestState();
+
+        expect(core.setItemDone(state, {id: 'A non-existent id', done: true}).items).toEqual([{
+            id: 1,
+            title: 'Learn about drag and drop',
+            done: false
+        }, {
+            id: 2,
+            title: 'Drink coffee',
+            done: false
+        }, {
+            id: 3,
+            title: 'Drink more coffee',
+            done: false
+        }, {
+            id: 4,
+            title: 'Another Learn about drag and drop',
+            done: false
+        }, {
+            id: 5,
+            title: 'Another Drink coffee',
+            done: false
+        }, {
+            id: 6,
+            title: 'Another Drink more coffee',
+            done: false
+        }]);
+    });
+})
