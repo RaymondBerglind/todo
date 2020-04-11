@@ -1,4 +1,7 @@
 import React from 'react';
+import dragIcon from '../../assets/drag_handle-white.svg';
+import editIcon from '../../assets/edit-white.svg';
+import deleteIcon from '../../assets/delete-white.svg';
 
 export default function(props) {
     const itemStyle = props.isBeingReordered ? {background: '#182251'} : {};
@@ -37,8 +40,8 @@ export default function(props) {
                     }
                 });
             }}>
-            <span className="todo-title">{`${props.title}: ${props.done ? 'Done' : 'Do'}`}</span>
             <input type="checkbox"
+                className="item-check"
                 checked={props.done}
                 onChange={(e) => {
                     props.triggerEvent({
@@ -49,6 +52,26 @@ export default function(props) {
                         }
                     })
                 }} />
+            <span className="todo-title">{`${props.title}: ${props.done ? 'Done' : 'Do'}`}</span>
+            <button className="list-item-action-button"
+                onClick={() => {
+
+                }}>
+                <img src={dragIcon} alt="drag icon" />
+            </button>
+            <button className="list-item-action-button"
+                onClick={() => {
+
+                }}>
+                <img src={editIcon} alt="edit icon" />
+            </button>
+            <button className="list-item-action-button"
+                onClick={() => {
+
+                }}>
+                <img src={deleteIcon} alt="pen icon" />
+            </button>
+            
         </div>
     );
 }
