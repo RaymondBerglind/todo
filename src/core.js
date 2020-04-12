@@ -28,6 +28,7 @@ export function createInitialState() {
         itemBeingReorderedId: null,
         reorderSourceIndex: null,
         reorderTargetIndex: null,
+        itemToEditId: null
     }
 }
 
@@ -100,4 +101,28 @@ export function setItemDone(state, {id, done}) {
             return [...prev, curr.id === id ? {...curr, done} : curr];
         }, [])
     }
+}
+
+export function getItemToEditId(state) {
+    return state.itemToEditId;
+}
+
+export function setItemToEditId(state, id) {
+    return {
+        ...state,
+        ...{
+            itemToEditId: id
+        }
+    }
+}
+
+export function setItemTitle(state, {id, value}) {
+    return {
+        ...state,
+        ...{
+            items: state.items.reduce((prev, curr) => {
+                return [...prev, curr.id === id ? {...curr, title: value} : curr];
+            }, [])
+        }
+    };
 }

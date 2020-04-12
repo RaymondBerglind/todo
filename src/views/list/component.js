@@ -8,6 +8,7 @@ export default function(props) {
                 return <ListItem item={item}
                     id={item.id}
                     title={item.title}
+                    itemEditActive={props.itemToEditId === item.id}
                     index={index}
                     triggerEvent={props.triggerEvent}
                     done={item.done}

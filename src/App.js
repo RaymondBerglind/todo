@@ -21,6 +21,15 @@ function App() {
         id: event.data.itemId,
         done: event.data.done
       }));
+    } else if (event.name === 'itemEditChosen') {
+      setState(core.setItemToEditId(state, event.id));
+    } else if (event.name === 'itemTitleChanged') {
+      setState(core.setItemTitle(state, {
+        id: event.id,
+        value: event.value
+      }));
+    } else if (event.name === 'itemEditConfirmed') {
+      setState(core.setItemToEditId(state, null));
     }
   }
   
@@ -29,6 +38,7 @@ function App() {
       <Search />
       <TodoList triggerEvent={triggerEvent}
         items={core.getListToDisplay(state)}
+        itemToEditId={core.getItemToEditId(state)}
         itemBeingReordered={core.getReorderTargetIndex(state)} />
     </div>
   );
