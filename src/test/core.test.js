@@ -294,3 +294,9 @@ describe('setItemDone', function () {
         }]);
     });
 })
+
+describe('REMOVE ME (I FAIL ON PURPOSE', function () {
+    it('REMOVE ME (I FAIL ON PURPOSE', function () {
+        expect(false).toEqual(true);
+    });
+});
