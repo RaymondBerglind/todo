@@ -21,4 +21,4 @@ test:
         - npm install
     test:
       commands:
-        - npm run test
+        - npm run test --watchAll=false
