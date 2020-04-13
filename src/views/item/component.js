@@ -64,7 +64,7 @@ export default function(props) {
                             itemId: props.id,
                             done: !props.done
                         }
-                    })
+                    });
                 }} />
             {props.itemEditActive ? (
                 <input type="text"
@@ -76,7 +76,10 @@ export default function(props) {
                             name: 'itemTitleChanged',
                             id: props.id,
                             value: e.target.value
-                        })
+                        });
+                    }}
+                    onBlur={() => {
+                        props.triggerEvent({name: 'itemEditConfirmed'});
                     }} />
             ) : <span className="todo-title">{`${props.title}: ${props.done ? 'Done' : 'Do'}`}</span>}
             <button className="list-item-action-button"
