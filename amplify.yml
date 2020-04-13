@@ -4,6 +4,7 @@ frontend:
     preBuild:
       commands:
         - npm install
+        - npm run test --watchAll=false
     build:
       commands:
         - npm run build
@@ -14,11 +15,3 @@ frontend:
   cache:
     paths:
       - node_modules/**/*
-test:
-  phases:
-    preTest:
-      commands:
-        - npm install
-    test:
-      commands:
-        - npm run test --watchAll=false
