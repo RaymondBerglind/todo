@@ -16,6 +16,9 @@ frontend:
       - node_modules/**/*
 test:
   phases:
+    preTest:
+      commands:
+        - npm install
     test:
       commands:
         - npm run test
