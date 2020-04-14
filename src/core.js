@@ -126,3 +126,12 @@ export function setItemTitle(state, {id, value}) {
         }
     };
 }
+
+export function removeItem(state, id) {
+    return {
+        ...state,
+        ...{
+            items: state.items.filter(item => item.id !== id)
+        }
+    };
+}

@@ -99,9 +99,14 @@ export default function(props) {
             </button>
             <button className="list-item-action-button"
                 onClick={() => {
-
+                    props.triggerEvent({
+                        name: 'removeItemChosen',
+                        data: {
+                            id: props.id
+                        }
+                    });
                 }}>
-                <img src={deleteIcon} alt="pen icon" />
+                <img src={deleteIcon} alt="delete icon" />
             </button>
             
         </div>

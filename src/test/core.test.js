@@ -294,3 +294,30 @@ describe('setItemDone', function () {
         }]);
     });
 });
+
+describe('removeItem', function () {
+    it('Should remove an item with a specified ID', function () {
+        const state = createTestState();
+        expect(core.removeItem(state, 4).items).toEqual([{
+            id: 1,
+            title: 'Learn about drag and drop',
+            done: false
+        }, {
+            id: 2,
+            title: 'Drink coffee',
+            done: false
+        }, {
+            id: 3,
+            title: 'Drink more coffee',
+            done: false
+        }, {
+            id: 5,
+            title: 'Another Drink coffee',
+            done: false
+        }, {
+            id: 6,
+            title: 'Another Drink more coffee',
+            done: false
+        }]);
+    });
+});

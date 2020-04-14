@@ -30,6 +30,8 @@ function App() {
       }));
     } else if (event.name === 'itemEditConfirmed') {
       setState(core.setItemToEditId(state, null));
+    } else if (event.name === 'removeItemChosen') {
+      setState(core.removeItem(state, event.data.id));
     }
   }
   
