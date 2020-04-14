@@ -21,7 +21,7 @@ export default function(props) {
     });
 
     return (
-        <div className="list-item"
+        <div className="list-item grab"
             draggable
             style={itemStyle}
             onDragStart={(e) => {
@@ -82,11 +82,12 @@ export default function(props) {
                         props.triggerEvent({name: 'itemEditConfirmed'});
                     }} />
             ) : <span className="todo-title">{`${props.title}: ${props.done ? 'Done' : 'Do'}`}</span>}
-            <button className="list-item-action-button"
-                onClick={() => {
-
-                }}>
-                <img src={dragIcon} alt="drag icon" />
+            <button className="list-item-action-button grab"
+                onClick={() => {}}>
+                <img
+                    draggable={false}
+                    src={dragIcon}
+                    alt="drag icon" />
             </button>
             <button className="list-item-action-button"
                 onClick={() => {

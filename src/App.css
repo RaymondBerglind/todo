@@ -28,12 +28,15 @@ body {
   margin: 15px 0;
   color: #FFF;
   word-wrap: normal;
-  cursor: grab;
 
   border: 5px solid black;
 }
 
-.list-item:active {
+.grab {
+  cursor: grab;
+}
+
+.grab:active {
   cursor: grabbing;
 }
 
