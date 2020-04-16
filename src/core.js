@@ -1,3 +1,5 @@
+import {v4 as uuid} from 'uuid';
+
 export function createInitialState() {
     return {
         items: [{
@@ -30,6 +32,21 @@ export function createInitialState() {
         reorderTargetIndex: null,
         itemToEditId: null
     }
+}
+
+export function createItem({title} = {}) {
+    return {
+        id: uuid(),
+        title: title || '',
+        done: false
+    };
+}
+
+export function addItem(state, item) {
+    return {
+        ...state,
+        items: [...state.items, item]
+    };
 }
 
 export function getItems(state) {

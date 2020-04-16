@@ -109,7 +109,6 @@ export default function(props) {
                 }}>
                 <img src={deleteIcon} alt="delete icon" />
             </button>
-            
         </div>
     );
 }

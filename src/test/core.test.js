@@ -321,3 +321,12 @@ describe('removeItem', function () {
         }]);
     });
 });
+
+describe('addItem', function () {
+    it('Should add a new item with a supplied title at the end of the list', function () {
+        const newItem = core.createItem({title: 'A new item'});
+        const state = core.addItem(createTestState(), newItem);
+        
+        expect(state.items[state.items.length - 1]).toEqual(newItem);
+    });
+});

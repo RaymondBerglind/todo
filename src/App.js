@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import './App.css';
 import Search from './views/search/component';
 import TodoList from './views/list/component';
+import AddButton from './views/add/component';
 import * as core from './core';
 
 function App() {
@@ -28,6 +29,11 @@ function App() {
         id: event.id,
         value: event.value
       }));
+    } else if (event.name === 'addItemChosen') {
+      const item = core.createItem({});
+      setState(core.setItemToEditId(
+        core.addItem(state, item),
+        item.id));
     } else if (event.name === 'itemEditConfirmed') {
       setState(core.setItemToEditId(state, null));
     } else if (event.name === 'removeItemChosen') {
@@ -42,6 +48,7 @@ function App() {
         items={core.getListToDisplay(state)}
         itemToEditId={core.getItemToEditId(state)}
         itemBeingReordered={core.getReorderTargetIndex(state)} />
+      <AddButton triggerEvent={triggerEvent} />
     </div>
   );
 }

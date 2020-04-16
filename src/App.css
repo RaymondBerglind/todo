@@ -66,3 +66,13 @@ body {
   padding: 1em;
   box-sizing: border-box;
 }
+
+.add {
+  width: 100%;
+  border: 5px solid white;
+  background: none;
+  outline: none;
+  color: white;
+  font-size: 1em;
+  height: 50px;
+}
