@@ -1,3 +1,7 @@
+html, body, #root {
+  height: 100%;
+}
+
 body {
   background-color: #18547d;
   color: #FFF;
@@ -5,8 +9,12 @@ body {
 
 .main-container {
   max-width: 600px;
+  max-height: 100%;
+  display: flex;
+  flex-direction: column;
   margin: 0 auto;
-  padding: 15px;
+  padding: 15px 0;
+  box-sizing: border-box;
 }
 
 .search-input {
@@ -17,6 +25,11 @@ body {
 
 .search-input:focus {
   outline: none;
+}
+
+.list {
+  flex: auto;
+  overflow: scroll;
 }
 
 .list-item {
@@ -75,4 +88,5 @@ body {
   color: white;
   font-size: 1em;
   height: 50px;
+  flex-shrink: 0;
 }
