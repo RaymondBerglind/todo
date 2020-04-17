@@ -70,6 +70,7 @@ export default function(props) {
                 <input type="text"
                     className="item-edit"
                     autoFocus
+                    placeholder='Enter an item title...'
                     value={props.title}
                     onChange={(e) => {
                         props.triggerEvent({

@@ -30,10 +30,7 @@ function App() {
         value: event.value
       }));
     } else if (event.name === 'addItemChosen') {
-      const item = core.createItem({});
-      setState(core.setItemToEditId(
-        core.addItem(state, item),
-        item.id));
+      setState(core.handleAddItemChosen(state));
     } else if (event.name === 'itemEditConfirmed') {
       setState(core.setItemToEditId(state, null));
     } else if (event.name === 'removeItemChosen') {

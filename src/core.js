@@ -152,3 +152,16 @@ export function removeItem(state, id) {
         }
     };
 }
+
+export function handleAddItemChosen(state) {
+    const item = createItem({});
+
+    return {
+        ...state,
+        ...{
+            items: addItem(state, item).items,
+            itemToEditId: item.id,
+            isUserEditingNewItem: true
+        }
+    };
+}
