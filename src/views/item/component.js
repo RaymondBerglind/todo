@@ -81,7 +81,7 @@ export default function(props) {
                     onBlur={() => {
                         props.triggerEvent({name: 'itemEditConfirmed'});
                     }} />
-            ) : <span className="todo-title">{`${props.title}: ${props.done ? 'Done' : 'Do'}`}</span>}
+            ) : <span className="todo-title">{props.title}</span>}
             <button className="list-item-action-button grab"
                 onClick={() => {}}>
                 <img
