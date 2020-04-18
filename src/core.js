@@ -30,7 +30,9 @@ export function createInitialState() {
         itemBeingReorderedId: null,
         reorderSourceIndex: null,
         reorderTargetIndex: null,
-        itemToEditId: null
+        itemToEditId: null,
+        itemEditPlaceholder: '',
+        isUserEditingNewItem: false,
     }
 }
 
@@ -51,6 +53,10 @@ export function addItem(state, item) {
 
 export function getItems(state) {
     return state.items;
+}
+
+export function getItemById(state, id) {
+    return state.items.filter(item => item.id === id)[0];
 }
 
 export function setIsReorderingItem(state, sourceIndex) {
@@ -124,6 +130,17 @@ export function getItemToEditId(state) {
     return state.itemToEditId;
 }
 
+export function getItemEditPlaceholder(state) {
+    return state.itemEditPlaceholder;
+}
+
+export function setItemEditPlaceholder(state, value) {
+    return {
+        ...state,
+        itemEditPlaceholder: value
+    };
+}
+
 export function setItemToEditId(state, id) {
     return {
         ...state,
@@ -163,5 +180,30 @@ export function handleAddItemChosen(state) {
             itemToEditId: item.id,
             isUserEditingNewItem: true
         }
+    };
+}
+
+export function handleItemEditConfirmChosen(state) {
+    if (!state.itemEditPlaceholder) {
+        return state;
+    }
+
+    return {
+        ...state,
+        items: setItemTitle(state, {
+            id: state.itemToEditId,
+            value: state.itemEditPlaceholder
+        }).items,
+        itemEditPlaceholder: '',
+        itemToEditId: null,
+        isUserEditingNewItem: false
+    };
+}
+
+export function handleItemEditChosen(state, id) {
+    return {
+        ...state,
+        itemToEditId: id,
+        itemEditPlaceholder: getItemById(state, id).title
     };
 }

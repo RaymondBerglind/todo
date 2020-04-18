@@ -9,6 +9,7 @@ export default function(props) {
                     id={item.id}
                     title={item.title}
                     itemEditActive={props.itemToEditId === item.id}
+                    itemEditPlaceholder={props.itemEditPlaceholder}
                     index={index}
                     triggerEvent={props.triggerEvent}
                     done={item.done}

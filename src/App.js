@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import './App.css';
 import Search from './views/search/component';
 import TodoList from './views/list/component';
@@ -23,27 +23,41 @@ function App() {
         done: event.data.done
       }));
     } else if (event.name === 'itemEditChosen') {
-      setState(core.setItemToEditId(state, event.id));
+      setState(core.handleItemEditChosen(state, event.id));
     } else if (event.name === 'itemTitleChanged') {
-      setState(core.setItemTitle(state, {
-        id: event.id,
-        value: event.value
-      }));
+      setState(core.setItemEditPlaceholder(state, event.value));
     } else if (event.name === 'addItemChosen') {
       setState(core.handleAddItemChosen(state));
     } else if (event.name === 'itemEditConfirmed') {
-      setState(core.setItemToEditId(state, null));
+      setState(core.handleItemEditConfirmChosen(state));
     } else if (event.name === 'removeItemChosen') {
       setState(core.removeItem(state, event.data.id));
     }
   }
   
+  function handleKeyDown(event) {
+    if (event.key === 'Enter' || event.key === 'Escape') {
+      triggerEvent({
+        name: 'itemEditConfirmed',
+      });
+    }
+  }
+
+  useEffect(() => {
+      document.addEventListener('keydown', handleKeyDown, false);
+
+      return () => {
+          document.removeEventListener('keydown', handleKeyDown, false);
+      }
+  });
+
   return (
     <div className="main-container">
       <Search />
       <TodoList triggerEvent={triggerEvent}
         items={core.getListToDisplay(state)}
         itemToEditId={core.getItemToEditId(state)}
+        itemEditPlaceholder={core.getItemEditPlaceholder(state)}
         itemBeingReordered={core.getReorderTargetIndex(state)} />
       <AddButton triggerEvent={triggerEvent} />
     </div>

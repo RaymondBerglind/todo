@@ -1,24 +1,10 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import dragIcon from '../../assets/drag_handle-white.svg';
 import editIcon from '../../assets/edit-white.svg';
 import deleteIcon from '../../assets/delete-white.svg';
 
 export default function(props) {
     const itemStyle = props.isBeingReordered ? {background: '#182251'} : {};
-    
-    function handleKeyDown(event) {
-        if (event.key === 'Enter' || event.key === 'Escape') {
-            props.triggerEvent({name: 'itemEditConfirmed'});
-        }
-    }
-
-    useEffect(() => {
-        document.addEventListener('keydown', handleKeyDown, false);
-
-        return () => {
-            document.removeEventListener('keydown', handleKeyDown, false);
-        }
-    });
 
     return (
         <div className="list-item grab"
@@ -71,7 +57,7 @@ export default function(props) {
                     className="item-edit"
                     autoFocus
                     placeholder='Enter an item title...'
-                    value={props.title}
+                    value={props.itemEditPlaceholder}
                     onChange={(e) => {
                         props.triggerEvent({
                             name: 'itemTitleChanged',
@@ -80,8 +66,14 @@ export default function(props) {
                         });
                     }}
                     onBlur={() => {
-                        props.triggerEvent({name: 'itemEditConfirmed'});
-                    }} />
+                        props.triggerEvent({
+                            name: 'itemEditConfirmed',
+                            data: {
+                                id: props.id
+                            }
+                        });
+                    }} 
+                    />
             ) : <span className="todo-title">{props.title}</span>}
             <button className="list-item-action-button grab"
                 onClick={() => {}}>
