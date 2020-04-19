@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import './App.css';
+import serviceEndpoints from './serviceEndpoints.json';
 import Search from './views/search/component';
 import TodoList from './views/list/component';
 import AddButton from './views/add/component';
@@ -45,6 +46,19 @@ function App() {
 
   useEffect(() => {
       document.addEventListener('keydown', handleKeyDown, false);
+
+      if (state.shouldFetchItems) {
+        fetch(serviceEndpoints.todoBaseURL + '/items')
+          .then((response) => {
+            return response.json();
+          })
+          .then((data) => {
+            setState(core.handleItemsResponse(state, data));
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
 
       return () => {
           document.removeEventListener('keydown', handleKeyDown, false);

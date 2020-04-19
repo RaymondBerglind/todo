@@ -2,37 +2,14 @@ import {v4 as uuid} from 'uuid';
 
 export function createInitialState() {
     return {
-        items: [{
-            id: 1,
-            title: 'Learn about drag and drop',
-            done: false
-        }, {
-            id: 2,
-            title: 'Drink coffee',
-            done: false
-        }, {
-            id: 3,
-            title: 'Drink more coffee',
-            done: false
-        }, {
-            id: 4,
-            title: 'Another Learn about drag and drop',
-            done: false
-        }, {
-            id: 5,
-            title: 'Another Drink coffee',
-            done: false
-        }, {
-            id: 6,
-            title: 'Another Drink more coffee',
-            done: false
-        }],
+        items: [],
         itemBeingReorderedId: null,
         reorderSourceIndex: null,
         reorderTargetIndex: null,
         itemToEditId: null,
         itemEditPlaceholder: '',
         isUserEditingNewItem: false,
+        shouldFetchItems: true
     }
 }
 
@@ -205,5 +182,13 @@ export function handleItemEditChosen(state, id) {
         ...state,
         itemToEditId: id,
         itemEditPlaceholder: getItemById(state, id).title
+    };
+}
+
+export function handleItemsResponse(state, response) {
+    return {
+        ...state,
+        items: response.items,
+        shouldFetchItems: false
     };
 }
