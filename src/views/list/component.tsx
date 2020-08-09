@@ -1,10 +1,19 @@
 import React from 'react';
+import { item } from '../../core';
 import ListItem from '../item/component';
 
-export default function(props) {
+interface props {
+    items: item[];
+    itemToEditId: string,
+    itemEditPlaceholder: string;
+    triggerEvent: (event: { name: string }) => void;
+    itemBeingReordered: number;
+}
+
+export default function(props: props) {
     return (
         <div className="list">
-            {props.items.map((item, index) => {
+            {props.items.map((item: item, index: number) => {
                 return <ListItem item={item}
                     id={item.id}
                     title={item.title}

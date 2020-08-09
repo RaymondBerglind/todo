@@ -2,9 +2,9 @@ import React, {useState, useEffect} from 'react';
 import './App.css';
 import serviceEndpoints from './serviceEndpoints.json';
 import Search from './views/search/component';
-import TodoList from './views/list/component';
+import TodoList from './views/list/component.tsx';
 import AddButton from './views/add/component';
-import * as core from './core';
+import * as core from './core.ts';
 
 function App() {
   const [state, setState] = useState(core.createInitialState());
