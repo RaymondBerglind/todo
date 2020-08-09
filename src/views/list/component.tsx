@@ -11,6 +11,7 @@ interface props {
 }
 
 // How important is it to use this style?
+// Update: Apparently, not very important, the regular function syntax is fine.
 const List: React.FC<props> = (props: props) => (
     <div className="list">
         {props.items.map((item: item, index: number) => {
