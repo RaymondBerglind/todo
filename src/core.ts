@@ -8,7 +8,7 @@ export interface item {
 
 interface state {
     items: item[],
-    itemBeingReorderedId: string | null,
+    itemBeingReorderedId?: string,
     reorderSourceIndex?: number,
     reorderTargetIndex?: number,
     itemToEditId: string,
@@ -17,10 +17,10 @@ interface state {
     shouldFetchItems: boolean
 }
 
-export function createInitialState() {
+export function createInitialState(): state {
     let state: state = {
         items: [],
-        itemBeingReorderedId: null,
+        // itemBeingReorderedId: null, -> These were previously initialized with null, now moved to the state interface.
         // reorderSourceIndex: null, -> These were previously initialized with null, now moved to the state interface.
         // reorderTargetIndex: null, -> These were previously initialized with null, now moved to the state interface.
         itemToEditId: '',
@@ -55,14 +55,14 @@ export function getItemById(state: state, id: string) {
     return state.items.filter(item => item.id === id)[0];
 }
 
-export function setIsReorderingItem(state: state, sourceIndex: number) {
+export function setIsReorderingItem(state: state, sourceIndex: number): state {
     state.reorderSourceIndex = sourceIndex;
     state.itemBeingReorderedId = state.items[sourceIndex].id;
 
     return { ...state };
 }
 
-export function setReorderingTarget(state: state, targetIndex: number) {
+export function setReorderingTarget(state: state, targetIndex: number): state {
     state.reorderTargetIndex = targetIndex;
     return { ...state };
 }
@@ -71,13 +71,13 @@ export function isReorderingList(state: state) {
     return state.reorderSourceIndex || state.reorderSourceIndex === 0;
 }
 
-export function clearReordering(state: state) {
+export function clearReordering(state: state): state {
     return {
         ...state,
         ...{
-            itemBeingReorderedId: null,
-            reorderSourceIndex: null,
-            reorderTargetIndex: null
+            itemBeingReorderedId: undefined,
+            reorderSourceIndex: undefined,
+            reorderTargetIndex: undefined
         }
     };
 }
@@ -90,7 +90,7 @@ export function getReorderTargetIndex(state: state) {
     return state.reorderTargetIndex;
 }
 
-export function reorderSourceAndTarget(state: state) {
+export function reorderSourceAndTarget(state: state): state {
     if (!state.reorderTargetIndex && state.reorderTargetIndex !== 0) {
         return state;
     }
@@ -116,7 +116,7 @@ export function getListToDisplay(state: state) {
 export function setItemDone(
     state: state,
     { id, done }: { id: string, done: boolean } // Is there a nicer way to do this?
-) {
+): state {
     return {
         ...state,
         items: state.items.reduce<item[]>((prev, curr) => {
@@ -133,14 +133,14 @@ export function getItemEditPlaceholder(state: state) {
     return state.itemEditPlaceholder;
 }
 
-export function setItemEditPlaceholder(state: state, value: string) {
+export function setItemEditPlaceholder(state: state, value: string): state {
     return {
         ...state,
         itemEditPlaceholder: value
     };
 }
 
-export function setItemToEditId(state: state, id: string) {
+export function setItemToEditId(state: state, id: string): state {
     return {
         ...state,
         ...{
@@ -152,7 +152,7 @@ export function setItemToEditId(state: state, id: string) {
 export function setItemTitle(
     state: state,
     { id, value }: { id: string, value: string }
-) {
+): state {
     return {
         ...state,
         ...{
@@ -163,7 +163,7 @@ export function setItemTitle(
     };
 }
 
-export function removeItem(state: state, id: string) {
+export function removeItem(state: state, id: string): state {
     return {
         ...state,
         ...{
@@ -172,7 +172,7 @@ export function removeItem(state: state, id: string) {
     };
 }
 
-export function handleAddItemChosen(state: state) {
+export function handleAddItemChosen(state: state): state {
     const item = createItem();
 
     return {
@@ -185,7 +185,7 @@ export function handleAddItemChosen(state: state) {
     };
 }
 
-export function handleItemEditConfirmChosen(state: state) {
+export function handleItemEditConfirmChosen(state: state): state {
     if (!state.itemEditPlaceholder) {
         return state;
     }
@@ -197,12 +197,12 @@ export function handleItemEditConfirmChosen(state: state) {
             value: state.itemEditPlaceholder
         }).items,
         itemEditPlaceholder: '',
-        itemToEditId: null,
+        itemToEditId: '',
         isUserEditingNewItem: false
     };
 }
 
-export function handleItemEditChosen(state: state, id: string) {
+export function handleItemEditChosen(state: state, id: string): state {
     return {
         ...state,
         itemToEditId: id,
@@ -210,7 +210,7 @@ export function handleItemEditChosen(state: state, id: string) {
     };
 }
 
-export function handleItemsResponse(state: state, response: { items: item[] }) {
+export function handleItemsResponse(state: state, response: { items: item[] }): state {
     return {
         ...state,
         items: response.items,
